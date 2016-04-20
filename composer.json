@@ -1,7 +1,7 @@
 {
-    "name": "sonata-project/media-bundle",
+    "name": "bitfriends/sonata-media-bundle",
     "type": "symfony-bundle",
-    "description": "Symfony SonataMediaBundle",
+    "description": "Symfony3 SonataMediaBundle",
     "keywords": ["media", "sonata", "youtube", "dailymotion", "vimeo", "pdf", "file", "upload"],
     "homepage": "https://sonata-project.org/bundles/media",
     "license": "MIT",
