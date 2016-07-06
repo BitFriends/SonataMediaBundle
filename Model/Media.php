@@ -134,14 +134,22 @@ abstract class Media implements MediaInterface
     protected $size;
 
     /**
-     * @var GalleryHasMediaInterface[]
+     * @var GalleryItemInterface[]
      */
-    protected $galleryHasMedias;
+    protected $galleryItems;
 
     /**
      * @var CategoryInterface
      */
     protected $category;
+
+    /**
+     * {@inheritdoc}
+     */
+    public function __toString()
+    {
+        return $this->getName() ?: 'n/a';
+    }
 
     public function prePersist()
     {
@@ -162,11 +170,11 @@ abstract class Media implements MediaInterface
     public static function getStatusList()
     {
         return array(
-            self::STATUS_OK          => 'ok',
-            self::STATUS_SENDING     => 'sending',
-            self::STATUS_PENDING     => 'pending',
-            self::STATUS_ERROR       => 'error',
-            self::STATUS_ENCODING    => 'encoding',
+            self::STATUS_OK => 'ok',
+            self::STATUS_SENDING => 'sending',
+            self::STATUS_PENDING => 'pending',
+            self::STATUS_ERROR => 'error',
+            self::STATUS_ENCODING => 'encoding',
         );
     }
 
@@ -582,25 +590,17 @@ abstract class Media implements MediaInterface
     /**
      * {@inheritdoc}
      */
-    public function __toString()
+    public function setGalleryItems($galleryItems)
     {
-        return $this->getName() ?: 'n/a';
+        $this->galleryItems = $galleryItems;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function setGalleryHasMedias($galleryHasMedias)
+    public function getGalleryItems()
     {
-        $this->galleryHasMedias = $galleryHasMedias;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getGalleryHasMedias()
-    {
-        return $this->galleryHasMedias;
+        return $this->galleryItems;
     }
 
     /**

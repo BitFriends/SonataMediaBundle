@@ -15,11 +15,11 @@ use Imagine\Image\Box;
 
 interface MediaInterface
 {
-    const STATUS_OK          = 1;
-    const STATUS_SENDING     = 2;
-    const STATUS_PENDING     = 3;
-    const STATUS_ERROR       = 4;
-    const STATUS_ENCODING    = 5;
+    const STATUS_OK = 1;
+    const STATUS_SENDING = 2;
+    const STATUS_PENDING = 3;
+    const STATUS_ERROR = 4;
+    const STATUS_ENCODING = 5;
 
     const MISSING_BINARY_REFERENCE = 'missing_binary_content';
 
@@ -367,14 +367,14 @@ interface MediaInterface
     public function getBox();
 
     /**
-     * @param GalleryHasMediaInterface[] $galleryHasMedias
+     * @param GalleryItemInterface[] $galleryItems
      */
-    public function setGalleryHasMedias($galleryHasMedias);
+    public function setGalleryItems($galleryItems);
 
     /**
-     * @return GalleryHasMediaInterface[]
+     * @return GalleryItemInterface[]
      */
-    public function getGalleryHasMedias();
+    public function getGalleryItems();
 
     /**
      * @return string

@@ -129,9 +129,9 @@ class CloudFront implements CDNInterface
         try {
             $result = $this->getClient()->createInvalidation(array(
                 'DistributionId' => $this->distributionId,
-                'Paths'          => array(
+                'Paths' => array(
                     'Quantity' => count($normalizedPaths),
-                    'Items'    => $normalizedPaths,
+                    'Items' => $normalizedPaths,
                 ),
                 'CallerReference' => $this->getCallerReference($normalizedPaths),
             ));
@@ -147,48 +147,13 @@ class CloudFront implements CDNInterface
     }
 
     /**
-     * Return a CloudFrontClient.
-     *
-     * @return CloudFrontClient
-     */
-    private function getClient()
-    {
-        if (!$this->client) {
-            $this->client = CloudFrontClient::factory(array(
-                'key'    => $this->key,
-                'secret' => $this->secret,
-            ));
-        }
-
-        return $this->client;
-    }
-
-    /**
      * For testing only.
      *
      * @param CloudFrontClient $client
      */
-    public function setClient($client)
+    public function setClient(CloudFrontClient $client)
     {
-        if (!$client instanceof CloudFrontClient) {
-            @trigger_error('The '.__METHOD__.' expects a CloudFrontClient as parameter.', E_USER_DEPRECATED);
-        }
-
         $this->client = $client;
-    }
-
-    /**
-     * Generates a valid caller reference from given paths regardless its order.
-     *
-     * @param array $paths
-     *
-     * @return string a md5 representation
-     */
-    protected function getCallerReference(array $paths)
-    {
-        sort($paths);
-
-        return md5(implode(',', $paths));
     }
 
     /**
@@ -199,7 +164,7 @@ class CloudFront implements CDNInterface
         try {
             $result = $this->getClient()->getInvalidation(array(
                 'DistributionId' => $this->distributionId,
-                'Id'             => $identifier,
+                'Id' => $identifier,
             ));
 
             return array_search($result->get('Status'), self::getStatusList());
@@ -217,11 +182,42 @@ class CloudFront implements CDNInterface
     {
         // @todo: check for a complete list of available CloudFront statuses
         return array(
-            self::STATUS_OK       => 'Completed',
-            self::STATUS_TO_SEND  => 'STATUS_TO_SEND',
+            self::STATUS_OK => 'Completed',
+            self::STATUS_TO_SEND => 'STATUS_TO_SEND',
             self::STATUS_TO_FLUSH => 'STATUS_TO_FLUSH',
-            self::STATUS_ERROR    => 'STATUS_ERROR',
-            self::STATUS_WAITING  => 'InProgress',
+            self::STATUS_ERROR => 'STATUS_ERROR',
+            self::STATUS_WAITING => 'InProgress',
         );
+    }
+
+    /**
+     * Generates a valid caller reference from given paths regardless its order.
+     *
+     * @param array $paths
+     *
+     * @return string a md5 representation
+     */
+    protected function getCallerReference(array $paths)
+    {
+        sort($paths);
+
+        return md5(implode(',', $paths));
+    }
+
+    /**
+     * Return a CloudFrontClient.
+     *
+     * @return CloudFrontClient
+     */
+    private function getClient()
+    {
+        if (!$this->client) {
+            $this->client = CloudFrontClient::factory(array(
+                'key' => $this->key,
+                'secret' => $this->secret,
+            ));
+        }
+
+        return $this->client;
     }
 }

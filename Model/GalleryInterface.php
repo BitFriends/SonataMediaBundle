@@ -14,6 +14,16 @@ namespace Sonata\MediaBundle\Model;
 interface GalleryInterface
 {
     /**
+     * @return string
+     */
+    public function __toString();
+
+    /**
+     * @return int
+     */
+    public function getId();
+
+    /**
      * Set name.
      *
      * @param string $name
@@ -92,22 +102,17 @@ interface GalleryInterface
     public function getDefaultFormat();
 
     /**
-     * @param array $galleryHasMedias
+     * @param array $galleryItems
      */
-    public function setGalleryHasMedias($galleryHasMedias);
+    public function setGalleryItems($galleryItems);
 
     /**
-     * @return GalleryHasMediaInterface[]
+     * @return GalleryItemInterface[]
      */
-    public function getGalleryHasMedias();
+    public function getGalleryItems();
 
     /**
-     * @param GalleryHasMediaInterface $galleryHasMedia
+     * @param GalleryItemInterface $galleryItem
      */
-    public function addGalleryHasMedias(GalleryHasMediaInterface $galleryHasMedia);
-
-    /**
-     * @return string
-     */
-    public function __toString();
+    public function addGalleryItem(GalleryItemInterface $galleryItem);
 }
