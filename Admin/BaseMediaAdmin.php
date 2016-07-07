@@ -106,7 +106,10 @@ abstract class BaseMediaAdmin extends AbstractAdmin
 
         if ($this->hasRequest()) {
             if ($this->getRequest()->isMethod('POST')) {
-                $media->setProviderName($this->getRequest()->get(sprintf('%s[providerName]', $this->getUniqid()), null, true));
+                $parameters = $this->getRequest()->get($this->getUniqid());
+                $providerName = isset($parameters['providerName']) ? $parameters['providerName'] : null;
+
+                $media->setProviderName($providerName);
             } else {
                 $media->setProviderName($this->getRequest()->get('provider'));
             }
