@@ -127,9 +127,8 @@ class GalleryAdmin extends AbstractAdmin
                 ->add('defaultFormat', 'choice', array('choices' => $formats))
             ->end()
             ->with('Gallery')
-                ->add('galleryItems', 'sonata_type_collection', array(
-                        'cascade_validation' => true,
-                    ), array(
+                ->add('galleryItems', 'sonata_type_collection', array(),
+                    array(
                         'edit' => 'inline',
                         'inline' => 'table',
                         'sortable' => 'position',
